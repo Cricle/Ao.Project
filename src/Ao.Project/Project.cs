@@ -44,7 +44,7 @@ namespace Ao.Project
         }
 
 
-        public void Add(Project project)
+        public void Add(IProject project)
         {
             if (project is null)
             {
