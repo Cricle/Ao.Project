@@ -2,7 +2,6 @@
 {
     public abstract class ProjectPart : IProjectPart
     {
-
         public ProjectPart()
         {
         }

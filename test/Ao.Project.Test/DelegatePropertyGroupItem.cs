@@ -11,7 +11,7 @@ namespace Ao.Project.Test
 
         public Action DecorateAction { get; set; }
 
-        public override void Decorate()
+        public override void Decorate(IProject project)
         {
             DecorateAction();
         }

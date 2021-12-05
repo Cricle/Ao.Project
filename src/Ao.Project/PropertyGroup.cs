@@ -1,12 +1,22 @@
-﻿namespace Ao.Project
+﻿using System.Collections.Generic;
+
+namespace Ao.Project
 {
     public sealed class PropertyGroup : ProjectPartGroup<IPropertyGroupItem>, IPropertyGroupItem
     {
-        public void Decorate()
+        public PropertyGroup()
+        {
+        }
+
+        public PropertyGroup(IEnumerable<IPropertyGroupItem> datas) : base(datas)
+        {
+        }
+
+        public void Decorate(IProject project)
         {
             foreach (var item in Items)
             {
-                item.Decorate();
+                item.Decorate(project);
             }
         }
     }

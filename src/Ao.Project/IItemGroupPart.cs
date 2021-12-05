@@ -5,6 +5,6 @@ namespace Ao.Project
 {
     public interface IItemGroupPart : IProjectPart, IDisposable
     {
-        Task ConductAsync();
+        Task ConductAsync(IProject project);
     }
 }

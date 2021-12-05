@@ -16,7 +16,7 @@ namespace Ao.Project.Sample
     }
     class SayHelloTask : ItemGroupPart
     {
-        public override Task ConductAsync()
+        public override Task ConductAsync(IProject project)
         {
             Console.WriteLine("Hello!");
             return Task.CompletedTask;

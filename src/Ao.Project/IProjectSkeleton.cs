@@ -4,8 +4,8 @@ namespace Ao.Project
 {
     public interface IProjectSkeleton
     {
-        IList<IPropertyGroupItem> PropertyGroups { get; }
+        PropertyGroup PropertyGroup { get; }
 
-        IList<IItemGroupPart> ItemGroups { get; }
+        ItemGroup ItemGroup { get; }
     }
 }

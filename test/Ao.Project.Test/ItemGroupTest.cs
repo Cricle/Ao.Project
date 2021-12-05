@@ -19,7 +19,7 @@ namespace Ao.Project.Test
             group.Items.Add(new DelegateItemGroupPart(() => i += 2));
             group.Items.Add(new DelegateItemGroupPart(() => i += 3));
             group.Items.Add(new DelegateItemGroupPart(() => i += 4));
-            await group.ConductAsync();
+            await group.ConductAsync(null);
 
             Assert.AreEqual(10, i);
         }

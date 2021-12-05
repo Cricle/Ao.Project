@@ -21,32 +21,38 @@ namespace Ao.Project.Test
 
             IProjectSkeleton skeleton = project;
 
-            Assert.AreEqual(skeleton.ItemGroups, project.ItemGroups);
-            Assert.AreEqual(skeleton.PropertyGroups, project.PropertyGroups);
+            for (int i = 0; i < skeleton.ItemGroup.Items.Count; i++)
+            {
+                Assert.AreEqual(skeleton.ItemGroup.Items[i], project.ItemGroups[i]);
+            }
+            for (int i = 0; i < skeleton.PropertyGroup.Items.Count; i++)
+            {
+                Assert.AreEqual(skeleton.PropertyGroup.Items[i], project.PropertyGroups[i]);
+            }
         }
         [TestMethod]
         public void CreateWithSkeleton()
         {
             var sk = new ProjectSkeleton
             {
-                PropertyGroups = new List<IPropertyGroupItem>
+                PropertyGroup = new PropertyGroup(new List<IPropertyGroupItem>
                  {
                      new DelegatePropertyGroupItem(null),
                      new DelegatePropertyGroupItem(null),
-                 },
-                ItemGroups = new List<IItemGroupPart>
+                 }),
+                ItemGroup = new ItemGroup(new List<IItemGroupPart>
                   {
                       new DelegateItemGroupPart(null),
                       new DelegateItemGroupPart(null),
-                  }
+                  })
             };
             var proj = new Project(sk);
 
-            Assert.AreEqual(sk.PropertyGroups[0], proj.PropertyGroups[0]);
-            Assert.AreEqual(sk.PropertyGroups[1], proj.PropertyGroups[1]);
+            Assert.AreEqual(sk.PropertyGroup.Items[0], proj.PropertyGroups[0]);
+            Assert.AreEqual(sk.PropertyGroup.Items[1], proj.PropertyGroups[1]);
 
-            Assert.AreEqual(sk.ItemGroups[0], proj.ItemGroups[0]);
-            Assert.AreEqual(sk.ItemGroups[1], proj.ItemGroups[1]);
+            Assert.AreEqual(sk.ItemGroup.Items[0], proj.ItemGroups[0]);
+            Assert.AreEqual(sk.ItemGroup.Items[1], proj.ItemGroups[1]);
         }
         [TestMethod]
         public void GivenNullInit_MustThrowException()

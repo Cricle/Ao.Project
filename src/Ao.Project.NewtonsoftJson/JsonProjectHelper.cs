@@ -20,16 +20,16 @@ namespace Ao.Project.NewtonsoftJson
         public void Load(IProject project, string str)
         {
             var sk = JsonConvert.DeserializeObject<ProjectSkeleton>(str, settings);
-            if (sk.ItemGroups != null)
+            if (sk.ItemGroup != null)
             {
-                foreach (var group in sk.ItemGroups)
+                foreach (var group in sk.ItemGroup.Items)
                 {
                     project.ItemGroups.Add(group);
                 }
             }
-            if (sk.PropertyGroups != null)
+            if (sk.PropertyGroup != null)
             {
-                foreach (var prop in sk.PropertyGroups)
+                foreach (var prop in sk.PropertyGroup.Items)
                 {
                     project.PropertyGroups.Add(prop);
                 }
@@ -40,8 +40,8 @@ namespace Ao.Project.NewtonsoftJson
         {
             var sk = new ProjectSkeleton
             {
-                ItemGroups = project.ItemGroups,
-                PropertyGroups = project.PropertyGroups
+                ItemGroup = new ItemGroup(project.ItemGroups),
+                PropertyGroup = new PropertyGroup(project.PropertyGroups)
             };
             return JsonConvert.SerializeObject(sk, settings);
         }

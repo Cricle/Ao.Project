@@ -10,18 +10,14 @@ namespace Ao.Project
 {
     public class Project : ProjectPart, IItemGroupPart, IPropertyGroupItem, IProject, IProjectSkeleton
     {
-        public static readonly IPropertyGroupItem[] EmptyPropertyGroupItems = new PropertyGroupItem[0];
-        public static readonly IItemGroupPart[] EmptyItemGroupPart = new IItemGroupPart[0];
-
-
         public ConcurrentDictionary<string, object> Features { get; }
         public ConcurrentDictionary<string, object> Metadatas { get; }
         public ObservableCollection<IPropertyGroupItem> PropertyGroups { get; }
         public ObservableCollection<IItemGroupPart> ItemGroups { get; }
 
-        IList<IPropertyGroupItem> IProjectSkeleton.PropertyGroups => PropertyGroups;
+        PropertyGroup IProjectSkeleton.PropertyGroup => new PropertyGroup(PropertyGroups);
 
-        IList<IItemGroupPart> IProjectSkeleton.ItemGroups => ItemGroups;
+        ItemGroup IProjectSkeleton.ItemGroup => new ItemGroup(ItemGroups);
 
         public Project()
         {
@@ -39,8 +35,22 @@ namespace Ao.Project
 
             Features = new ConcurrentDictionary<string, object>();
             Metadatas = new ConcurrentDictionary<string, object>();
-            PropertyGroups = new ObservableCollection<IPropertyGroupItem>(skeleton.PropertyGroups?? EmptyPropertyGroupItems);
-            ItemGroups = new ObservableCollection<IItemGroupPart>(skeleton.ItemGroups?? EmptyItemGroupPart);
+            if (skeleton.PropertyGroup==null)
+            {
+                PropertyGroups = new ObservableCollection<IPropertyGroupItem>();
+            }
+            else
+            {
+                PropertyGroups = new ObservableCollection<IPropertyGroupItem>(skeleton.PropertyGroup.Items);
+            }
+            if (skeleton.ItemGroup == null)
+            {
+                ItemGroups = new ObservableCollection<IItemGroupPart>();
+            }
+            else
+            {
+                ItemGroups = new ObservableCollection<IItemGroupPart>(skeleton.ItemGroup.Items);
+            }
         }
 
 
@@ -76,16 +86,24 @@ namespace Ao.Project
         }
         public void Decorate()
         {
+            Decorate(this);
+        }
+        public void Decorate(IProject project)
+        {
             foreach (var group in PropertyGroups)
             {
-                group.Decorate();
+                group.Decorate(project);
             }
         }
-        public async Task ConductAsync()
+        public Task ConductAsync()
+        {
+            return ConductAsync(this);
+        }
+        public async Task ConductAsync(IProject project)
         {
             foreach (var group in ItemGroups)
             {
-                await group.ConductAsync();
+                await group.ConductAsync(project);
             }
         }
 

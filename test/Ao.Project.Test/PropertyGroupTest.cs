@@ -20,7 +20,7 @@ namespace Ao.Project.Test
             group.Items.Add(new DelegatePropertyGroupItem(() => i += 3));
             group.Items.Add(new DelegatePropertyGroupItem(() => i += 4));
 
-            group.Decorate();
+            group.Decorate(null);
 
             Assert.AreEqual(10, i);
         }

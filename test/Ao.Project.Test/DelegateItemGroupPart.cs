@@ -23,7 +23,7 @@ namespace Ao.Project.Test
 
         public Action DisposeAction { get; set; }
 
-        public override Task ConductAsync()
+        public override Task ConductAsync(IProject project)
         {
             return Action();
         }

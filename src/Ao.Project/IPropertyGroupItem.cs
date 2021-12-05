@@ -2,6 +2,6 @@
 {
     public interface IPropertyGroupItem : IProjectPart
     {
-        void Decorate();
+        void Decorate(IProject project);
     }
 }
