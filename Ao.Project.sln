@@ -5,15 +5,20 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.Project", "src\Ao.Project\Ao.Project.csproj", "{3947A5F4-4C2C-456D-B7B2-85D3FB919BF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.Project.NewtonsoftJson", "src\Ao.Project.NewtonsoftJson\Ao.Project.NewtonsoftJson.csproj", "{A830FAA0-BDC2-439B-98CC-21D5CFEAFBEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.Project.NewtonsoftJson", "src\Ao.Project.NewtonsoftJson\Ao.Project.NewtonsoftJson.csproj", "{A830FAA0-BDC2-439B-98CC-21D5CFEAFBEE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{95F1F909-418C-4F72-ADAA-6454AA8ECEA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{82D95AF3-AFC1-4D63-95F6-A164FE807727}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.Project.Sample", "sample\Ao.Project.Sample\Ao.Project.Sample.csproj", "{2056E7B7-1072-4D2A-B154-71455ACA58EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.Project.Sample", "sample\Ao.Project.Sample\Ao.Project.Sample.csproj", "{2056E7B7-1072-4D2A-B154-71455ACA58EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.Project.Test", "test\Ao.Project.Test\Ao.Project.Test.csproj", "{4A5C1299-0C0D-48DC-8405-F895642D392E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.Project.Test", "test\Ao.Project.Test\Ao.Project.Test.csproj", "{4A5C1299-0C0D-48DC-8405-F895642D392E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{D7B52557-584D-4F99-B5A2-6F97790AAE94}"
+	ProjectSection(SolutionItems) = preProject
+		eng\pkg.props = eng\pkg.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,9 +10,8 @@ namespace Ao.Project
 {
     public class Project : ProjectPart, IItemGroupPart, IPropertyGroupItem, IProject, IProjectSkeleton
     {
-        public ConcurrentDictionary<string, object> Features { get; }
-        public ConcurrentDictionary<string, object> Metadatas { get; }
         public ObservableCollection<IPropertyGroupItem> PropertyGroups { get; }
+
         public ObservableCollection<IItemGroupPart> ItemGroups { get; }
 
         PropertyGroup IProjectSkeleton.PropertyGroup => new PropertyGroup(PropertyGroups);
@@ -21,8 +20,6 @@ namespace Ao.Project
 
         public Project()
         {
-            Features = new ConcurrentDictionary<string, object>();
-            Metadatas = new ConcurrentDictionary<string, object>();
             PropertyGroups = new ObservableCollection<IPropertyGroupItem>();
             ItemGroups = new ObservableCollection<IItemGroupPart>();
         }
@@ -33,8 +30,6 @@ namespace Ao.Project
                 throw new ArgumentNullException(nameof(skeleton));
             }
 
-            Features = new ConcurrentDictionary<string, object>();
-            Metadatas = new ConcurrentDictionary<string, object>();
             if (skeleton.PropertyGroup==null)
             {
                 PropertyGroups = new ObservableCollection<IPropertyGroupItem>();
@@ -61,14 +56,6 @@ namespace Ao.Project
                 throw new ArgumentNullException(nameof(project));
             }
 
-            foreach (var item in project.Features)
-            {
-                Features[item.Key] = item.Value;
-            }
-            foreach (var item in project.Metadatas)
-            {
-                Metadatas[item.Key] = item.Value;
-            }
             foreach (var item in project.PropertyGroups)
             {
                 PropertyGroups.Add(item);
@@ -81,8 +68,6 @@ namespace Ao.Project
 
         public override void Reset()
         {
-            Features.Clear();
-            Metadatas.Clear();
         }
         public void Decorate()
         {
@@ -94,6 +79,18 @@ namespace Ao.Project
             {
                 group.Decorate(project);
             }
+        }
+        public override void Initialize(IServiceProvider provider)
+        {
+            foreach (var item in PropertyGroups)
+            {
+                item.Initialize(provider);
+            }
+            foreach (var item in ItemGroups)
+            {
+                item.Initialize(provider);
+            }
+            base.Initialize(provider);
         }
         public Task ConductAsync()
         {
@@ -107,15 +104,13 @@ namespace Ao.Project
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             foreach (var item in ItemGroups)
             {
                 item.Dispose();
             }
             ItemGroups.Clear();
-            Features.Clear();
-            Metadatas.Clear();
             PropertyGroups.Clear();
         }
     }

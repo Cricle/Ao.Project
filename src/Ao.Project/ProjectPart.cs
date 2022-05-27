@@ -1,4 +1,6 @@
-﻿namespace Ao.Project
+﻿using System;
+
+namespace Ao.Project
 {
     public abstract class ProjectPart : IProjectPart
     {
@@ -6,12 +8,16 @@
         {
         }
 
-        public virtual void Reset()
+        public virtual void Dispose()
         {
         }
-        protected virtual void OnProjectChanged(IProject project)
-        {
 
+        public virtual void Initialize(IServiceProvider provider)
+        {
+        }
+
+        public virtual void Reset()
+        {
         }
     }
 }

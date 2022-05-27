@@ -24,5 +24,33 @@ namespace Ao.Project.Test
 
             Assert.AreEqual(10, i);
         }
+        [TestMethod]
+        public void ListMethods()
+        {
+            var group = new PropertyGroup();
+
+            var del = new DelegatePropertyGroupItem(null);
+
+            group.Add(del);
+            Assert.AreEqual(1, group.Items.Count);
+            Assert.AreEqual(group.Items.Count, group.Count);
+
+            Assert.IsTrue(group.Contains(del));
+
+            var del2 = new DelegatePropertyGroupItem(null);
+            group.Insert(1, del2);
+            Assert.AreEqual(2,group.Count);
+
+            Assert.AreEqual(del2,group[1]);
+            group.RemoveAt(1);
+            Assert.AreEqual(1,group.Count);
+            group.Add(del2);
+            Assert.AreEqual(1, group.IndexOf(del2));
+
+            Assert.IsTrue(group.Remove(del2));
+
+            group.Clear();
+            Assert.AreEqual(0, group.Count);
+        }
     }
 }

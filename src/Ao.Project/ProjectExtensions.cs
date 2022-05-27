@@ -6,36 +6,6 @@ namespace Ao.Project
 {
     public static class ProjectExtensions
     {
-        public static T EnsureGetMetadata<T>(this IProject project, string key)
-        {
-            if (project is null)
-            {
-                throw new ArgumentNullException(nameof(project));
-            }
-
-            if (!project.Metadatas.ContainsKey(key))
-            {
-                ThrowNotFound(key);
-            }
-            return (T)project.Metadatas[key];
-        }
-        private static void ThrowNotFound(string key)
-        {
-            throw new KeyNotFoundException($"Can't find project part key {key}");
-        }
-        public static T EnsureGetFeature<T>(this IProject project, string key)
-        {
-            if (project is null)
-            {
-                throw new ArgumentNullException(nameof(project));
-            }
-
-            if (!project.Features.ContainsKey(key))
-            {
-                ThrowNotFound(key);
-            }
-            return (T)project.Features[key];
-        }
         public static IEnumerable<IItemGroupPart> FindItemGroupParts(this IProject project, Predicate<IItemGroupPart> condition)
         {
             if (project is null)
@@ -73,6 +43,19 @@ namespace Ao.Project
             where T : ItemGroupPart
         {
             return FindItemGroupParts(project, typeof(T)).OfType<T>();
+        }
+        public static IProjectSkeleton ToSkeleton(this IProject project)
+        {
+            if (project is null)
+            {
+                throw new ArgumentNullException(nameof(project));
+            }
+
+            return new ProjectSkeleton
+            {
+                ItemGroup = new ItemGroup(project.ItemGroups),
+                PropertyGroup = new PropertyGroup(project.PropertyGroups)
+            };
         }
     }
 }

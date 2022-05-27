@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ao.Project
 {
@@ -18,6 +19,14 @@ namespace Ao.Project
             {
                 item.Decorate(project);
             }
+        }
+        public override void Initialize(IServiceProvider provider)
+        {
+            foreach (var item in Items)
+            {
+                item.Initialize(provider);
+            }
+            base.Initialize(provider);
         }
     }
 }

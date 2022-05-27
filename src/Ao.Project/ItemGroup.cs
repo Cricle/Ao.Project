@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Ao.Project
@@ -20,8 +21,15 @@ namespace Ao.Project
                 await item.ConductAsync(project);
             }
         }
-
-        public void Dispose()
+        public override void Initialize(IServiceProvider provider)
+        {
+            foreach (var item in Items)
+            {
+                item.Initialize(provider);
+            }
+            base.Initialize(provider);
+        }
+        public override void Dispose()
         {
             foreach (var item in Items)
             {

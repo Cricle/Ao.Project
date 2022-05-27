@@ -19,25 +19,6 @@ namespace Ao.Project.Test
             Assert.ThrowsException<ArgumentNullException>(() => ProjectExtensions.FindItemGroupParts<DelegateItemGroupPart>(null).Count());
             Assert.ThrowsException<ArgumentNullException>(() => ProjectExtensions.FindItemGroupParts(null, a => true).Count());
             Assert.ThrowsException<ArgumentNullException>(() => ProjectExtensions.FindItemGroupParts(project, (Predicate<IItemGroupPart>)null).Count());
-            Assert.ThrowsException<ArgumentNullException>(() => ProjectExtensions.EnsureGetFeature<object>(null,"a"));
-            Assert.ThrowsException<ArgumentNullException>(() => ProjectExtensions.EnsureGetMetadata<object>(null, "b"));
-        }
-        [TestMethod]
-        public void EnsureGet_NotFond_MustThrowException()
-        {
-            var proj = new Project();
-
-            Assert.ThrowsException<KeyNotFoundException>(() => ProjectExtensions.EnsureGetMetadata<object>(proj, "a"));
-            Assert.ThrowsException<KeyNotFoundException>(() => ProjectExtensions.EnsureGetFeature<object>(proj, "a"));
-        }
-        [TestMethod]
-        public void EnsureGet_Got()
-        {
-            var proj = new Project();
-            proj.Metadatas.TryAdd("a", 1);
-            proj.Features.TryAdd("b", 2);
-            Assert.AreEqual(1, ProjectExtensions.EnsureGetMetadata<int>(proj, "a"));
-            Assert.AreEqual(2, ProjectExtensions.EnsureGetFeature<int>(proj, "b"));
         }
         [TestMethod]
         public void FindItemGroup()
