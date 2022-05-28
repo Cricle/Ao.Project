@@ -9,6 +9,9 @@ namespace Ao.Project
         Task ConductAsync();
         void Decorate();
 
+        ConcurrentDictionary<string, object> Features { get; }
+        ConcurrentDictionary<string, object> Metadatas { get; }
+
         ObservableCollection<IItemGroupPart> ItemGroups { get; }
         ObservableCollection<IPropertyGroupItem> PropertyGroups { get; }
     }

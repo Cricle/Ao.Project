@@ -14,6 +14,9 @@ namespace Ao.Project.Test
         public void Init_AllMustNotNull()
         {
             var project = new Project();
+            Assert.IsNotNull(project.Metadatas);
+            Assert.IsNotNull(project.Features);
+
             Assert.IsNotNull(project.ItemGroups);
             Assert.IsNotNull(project.PropertyGroups);
 
@@ -33,6 +36,7 @@ namespace Ao.Project.Test
         {
             var sk = new ProjectSkeleton
             {
+                
                 PropertyGroup = new PropertyGroup(new List<IPropertyGroupItem>
                  {
                      new DelegatePropertyGroupItem(null),
@@ -53,6 +57,24 @@ namespace Ao.Project.Test
             Assert.AreEqual(sk.ItemGroup.Items[1], proj.ItemGroups[1]);
         }
         [TestMethod]
+        public void Reset()
+        {
+            var proj = new Project
+            {
+                Features =
+                {
+                    ["a"]=1
+                },
+                Metadatas =
+                {
+                    ["b"]=2
+                }
+            };
+            proj.Reset();
+            Assert.AreEqual(0, proj.Features.Count);
+            Assert.AreEqual(0, proj.Metadatas.Count);
+        }
+        [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
             Assert.ThrowsException<ArgumentNullException>(() => new Project(null));
@@ -63,6 +85,14 @@ namespace Ao.Project.Test
         {
             var proj = new Project
             {
+                Features =
+                {
+                    ["a"]=1
+                },
+                Metadatas =
+                {
+                    ["b"]=2
+                },
                 PropertyGroups =
                 {
                     new DelegatePropertyGroupItem(null),
@@ -77,6 +107,8 @@ namespace Ao.Project.Test
             var next = new Project();
 
             next.Add(proj);
+            Assert.AreEqual(1, next.Features["a"]);
+            Assert.AreEqual(2, next.Metadatas["b"]);
 
             Assert.AreEqual(proj.PropertyGroups[0], next.PropertyGroups[0]);
             Assert.AreEqual(proj.PropertyGroups[1], next.PropertyGroups[1]);

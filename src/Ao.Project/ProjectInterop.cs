@@ -7,8 +7,8 @@ namespace Ao.Project
         void Load(IProject project, Stream stream);
         void Load(IProject project, string str);
 
-        string Save(IProject project);
+        string Save(IProjectSkeleton project);
 
-        void Save(IProject project, Stream stream);
+        void Save(IProjectSkeleton project, Stream stream);
     }
 }

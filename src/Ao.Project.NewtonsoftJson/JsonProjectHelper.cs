@@ -36,21 +36,17 @@ namespace Ao.Project.NewtonsoftJson
             }
         }
 
-        public string Save(IProject project)
+        public string Save(IProjectSkeleton project)
         {
-            var sk = new ProjectSkeleton
-            {
-                ItemGroup = new ItemGroup(project.ItemGroups),
-                PropertyGroup = new PropertyGroup(project.PropertyGroups)
-            };
-            return JsonConvert.SerializeObject(sk, settings);
+            return JsonConvert.SerializeObject(project, settings);
         }
 
-        public void Save(IProject project, Stream stream)
+        public void Save(IProjectSkeleton project, Stream stream)
         {
             var sw = new StreamWriter(stream);
             var str = Save(project);
             sw.Write(str);
+            sw.Flush();
         }
     }
 }

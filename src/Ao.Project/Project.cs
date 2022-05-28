@@ -10,6 +10,10 @@ namespace Ao.Project
 {
     public class Project : ProjectPart, IItemGroupPart, IPropertyGroupItem, IProject, IProjectSkeleton
     {
+        public ConcurrentDictionary<string, object> Features { get; }
+
+        public ConcurrentDictionary<string, object> Metadatas { get; }
+
         public ObservableCollection<IPropertyGroupItem> PropertyGroups { get; }
 
         public ObservableCollection<IItemGroupPart> ItemGroups { get; }
@@ -20,6 +24,9 @@ namespace Ao.Project
 
         public Project()
         {
+            Features = new ConcurrentDictionary<string, object>();
+            Metadatas = new ConcurrentDictionary<string, object>();
+
             PropertyGroups = new ObservableCollection<IPropertyGroupItem>();
             ItemGroups = new ObservableCollection<IItemGroupPart>();
         }
@@ -29,6 +36,8 @@ namespace Ao.Project
             {
                 throw new ArgumentNullException(nameof(skeleton));
             }
+            Features = new ConcurrentDictionary<string, object>();
+            Metadatas = new ConcurrentDictionary<string, object>();
 
             if (skeleton.PropertyGroup==null)
             {
@@ -55,7 +64,14 @@ namespace Ao.Project
             {
                 throw new ArgumentNullException(nameof(project));
             }
-
+            foreach (var item in project.Features)
+            {
+                Features[item.Key]=item.Value;
+            }
+            foreach (var item in project.Metadatas)
+            {
+                Metadatas[item.Key] = item.Value;
+            }
             foreach (var item in project.PropertyGroups)
             {
                 PropertyGroups.Add(item);
@@ -68,6 +84,9 @@ namespace Ao.Project
 
         public override void Reset()
         {
+            Features.Clear();
+            Metadatas.Clear();
+
         }
         public void Decorate()
         {
@@ -110,6 +129,9 @@ namespace Ao.Project
             {
                 item.Dispose();
             }
+            Features.Clear();
+            Metadatas.Clear();
+
             ItemGroups.Clear();
             PropertyGroups.Clear();
         }
